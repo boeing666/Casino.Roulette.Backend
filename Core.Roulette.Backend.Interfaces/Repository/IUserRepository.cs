@@ -12,5 +12,7 @@ namespace Casino.Roulette.Backend.Interfaces.Repository
         User GetRandomUser();
 
         List<User> Initialize();
+
+
     }
 }

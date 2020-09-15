@@ -10,5 +10,7 @@ namespace Casino.Roulette.Backend.Core
     {
         User GetRandomUserFromUserRepo();
         bool ConnectToRoulette(string token, string connectionId);
+
+        User GetUserInfoByToken(Guid token);
     }
 }

@@ -48,6 +48,12 @@ namespace Casino.Roulette.Backend.Services.Managers
 
         }
 
+        public User GetUserByToken(Guid token)
+        {
+            //player service should go here
+            throw new NotImplementedException(); 
+        }
+
         public bool GetUserById(long id, out User user)
         {
             return _users.TryGetValue(id, out user);

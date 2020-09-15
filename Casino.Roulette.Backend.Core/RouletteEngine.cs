@@ -29,5 +29,10 @@ namespace Casino.Roulette.Backend.Core
         {
             return _userManager.AddUser(token, connectionId, out var user);
         }
+
+        public User GetUserInfoByToken(Guid token)
+        {
+            return _userManager.GetUserByToken(token);
+        }
     }
 }
