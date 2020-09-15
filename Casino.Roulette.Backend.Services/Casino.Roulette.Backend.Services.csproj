@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Casino.Roulette.Backend.Contracts\Casino.Roulette.Backend.Contracts.csproj" />
+    <ProjectReference Include="..\Core.Roulette.Backend.Interfaces\Casino.Roulette.Backend.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
