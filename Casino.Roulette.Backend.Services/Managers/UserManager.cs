@@ -10,11 +10,14 @@ namespace Casino.Roulette.Backend.Services.Managers
     public class UserManager
     {
         private readonly ConcurrentDictionary<long, User> _users;
+
+        private readonly ConcurrentDictionary<string, long> _connectedUsers;
         private readonly IUserRepository _userRepository;
 
         public UserManager(IUserRepository userRepo)
         {
             _users = new ConcurrentDictionary<long, User>();
+            _connectedUsers = new ConcurrentDictionary<string, long>();
             _userRepository = userRepo;
             FillData();
         }
@@ -46,6 +49,13 @@ namespace Casino.Roulette.Backend.Services.Managers
                 return true;
             }
 
+        }
+
+        public bool TryGetUser(string connection, out User user)
+        {
+            user = null;
+            return  _connectedUsers.TryGetValue(connection, out var userId) &&
+                         _users.TryGetValue(userId, out user);
         }
 
         public User GetUserByToken(Guid token)

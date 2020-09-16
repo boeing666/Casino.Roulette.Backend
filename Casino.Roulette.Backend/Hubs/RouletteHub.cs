@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Casino.Roulette.Backend.Contracts.Models.Messages;
 using Casino.Roulette.Backend.Core;
+using Casino.Roulette.Backend.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Casino.Roulette.Backend.Hubs
@@ -24,7 +26,21 @@ namespace Casino.Roulette.Backend.Hubs
             }
         }
 
+        public BaseResponse InitApp()
+        {
+            var result = new BaseResponse();
+            if (!_engine.TryGetUserByConnectionId(Context.ConnectionId, out var user))
+            {
+                result.Message = "Invalid Connection";
+                result.Success = false;
+            }
+            else
+            {
+                result.Data = user.GetUserModel();
+            }
 
+            return result;
+        }
 
 
 

@@ -43,10 +43,5 @@ namespace Casino.Roulette.Backend.Controllers
             return list;
         }
 
-        public User GetUserData(Guid token)
-        {
-            _engine.
-        }
-
     }
 }

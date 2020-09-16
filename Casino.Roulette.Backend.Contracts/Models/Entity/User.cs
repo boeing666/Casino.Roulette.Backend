@@ -12,5 +12,15 @@ namespace Casino.Roulette.Backend.Contracts.Models.Entity
 
 
         public string ConnectionId { get; set; }
+
+
+        public UserModel GetUserModel()
+        {
+            return new UserModel()
+            {
+                Name = Username,
+                Balance = Balance,
+            };
+        }
     }
 }

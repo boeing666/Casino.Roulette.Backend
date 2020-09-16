@@ -34,5 +34,10 @@ namespace Casino.Roulette.Backend.Core
         {
             return _userManager.GetUserByToken(token);
         }
+
+        public bool TryGetUserByConnectionId(string connection, out User user)
+        {
+            return _userManager.TryGetUser(connection, out user);
+        }
     }
 }
