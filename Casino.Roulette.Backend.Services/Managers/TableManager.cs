@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 using Casino.Roulette.Backend.Contracts.Settings;
 using Casino.Roulette.Backend.Interfaces;
@@ -13,21 +16,19 @@ namespace Casino.Roulette.Backend.Services.Managers
         private UserManager _usernManager;
         private RouletteTimer _timer;
 
+        private ConcurrentDictionary<long, RouletteTable> _rouletteTables;
+
         public TableManager(IMessageBroker broker, UserManager userManager)
         {
             _messageBroker = broker;
             _usernManager = userManager;
-            _timer = new RouletteTimer(Constants.AfterRoundTime);
-            _timer.Elapsed = BettingTimeStart;
+            _rouletteTables = new ConcurrentDictionary<long, RouletteTable>();
+
         }
 
-
-        public void BettingTimeStart()
+        public bool TryGetTableById(long tableId, out RouletteTable table)
         {
-            _messageBroker.BroadcastMessageToLobby(new object(), Commands.BettingTimeStart);
-
-            _timer = new RouletteTimer(Constants.BettingTime);
-            
+            return _rouletteTables.TryGetValue(tableId, out table);
         }
 
 

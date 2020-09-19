@@ -42,6 +42,26 @@ namespace Casino.Roulette.Backend.Hubs
             return result;
         }
 
+        public BaseResponse JoinTable(long tableId)
+        {
+            var result = new BaseResponse();
+            if (!_engine.TryGetUserByConnectionId(Context.ConnectionId, out var user))
+            {
+                result.Message = "user not connected";
+                result.Success = false;
+                return result;
+            }
+
+            if (!_engine.TryConnectToRouletteTable(tableId, user))
+            {
+                result.Message = "Wrong tableId";
+                result.Success = false;
+                return result;
+            }
+
+
+            return result;
+        }
 
 
     }

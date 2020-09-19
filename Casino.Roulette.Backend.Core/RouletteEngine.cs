@@ -35,6 +35,12 @@ namespace Casino.Roulette.Backend.Core
             return _userManager.GetUserByToken(token);
         }
 
+        public bool TryConnectToRouletteTable(long tableId, User user)
+        {
+
+            return _tableManager.TryGetTableById(tableId, out var table) && table.TryAddPlayerToTable(user);
+        }
+
         public bool TryGetUserByConnectionId(string connection, out User user)
         {
             return _userManager.TryGetUser(connection, out user);
