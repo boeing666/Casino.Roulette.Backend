@@ -16,6 +16,8 @@ namespace Casino.Roulette.Backend.Services
         public long TableId { get; set; }
         private readonly IMessageBroker _messageBroker;
         private RouletteTimer _timer;
+        public long RoundId { get; set; }
+        public TableState CurrentState { get; set; }
 
         private ConcurrentDictionary<long, UserOnTable> _connectedUsers;
         public RouletteTable(IMessageBroker messageBroker)
@@ -28,7 +30,8 @@ namespace Casino.Roulette.Backend.Services
         }
         public void BettingTimeStart()
         {
-            _messageBroker.BroadcastMessageToLobby(new object(), Commands.BettingTimeStart);
+            CurrentState = TableState.BettingTime;
+            _messageBroker.BroadcastMessageToLobby(GeTableCurrentData(), Commands.BettingTimeStart);
 
             _timer.SetInterval(Constants.BettingTime);
             _timer.Start();
@@ -37,13 +40,25 @@ namespace Casino.Roulette.Backend.Services
 
         public bool TryAddPlayerToTable(User user)
         {
-            var userOnTable = new UserOnTable();
-            userOnTable.TableId = TableId;
-            userOnTable.Status = StatusOnTable.Spectating;
+            var userOnTable = new UserOnTable
+            {
+                TableId = TableId,
+                Status = StatusOnTable.Spectating
+            };
 
             return _connectedUsers.TryAdd(user.Id, userOnTable);
         }
 
+        public TableCurrentData GeTableCurrentData()
+        {
+            return new TableCurrentData()
+            {
+                RoundId = this.RoundId,
+                SecondsRemaining = _timer.TimeLeft,
+                TableState = CurrentState
+            };
+            
+        }
 
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
 
 namespace Casino.Roulette.Backend.Core
@@ -15,5 +16,6 @@ namespace Casino.Roulette.Backend.Core
 
         User GetUserInfoByToken(Guid token);
         bool TryConnectToRouletteTable(long tableId, User user);
+        TableCurrentData GetTableData(long tableId);
     }
 }

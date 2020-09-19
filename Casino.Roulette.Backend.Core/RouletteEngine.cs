@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
 using Casino.Roulette.Backend.Interfaces;
+using Casino.Roulette.Backend.Contracts.Messages;
 
 namespace Casino.Roulette.Backend.Core
 {
@@ -44,6 +45,11 @@ namespace Casino.Roulette.Backend.Core
         public bool TryGetUserByConnectionId(string connection, out User user)
         {
             return _userManager.TryGetUser(connection, out user);
+        }
+
+        public TableCurrentData GetTableData(long tableId)
+        {
+            return !_tableManager.TryGetTableById(tableId, out var table) ? null : table.GeTableCurrentData();
         }
     }
 }
