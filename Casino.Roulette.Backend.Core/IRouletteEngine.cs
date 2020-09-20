@@ -17,5 +17,6 @@ namespace Casino.Roulette.Backend.Core
         User GetUserInfoByToken(Guid token);
         bool TryConnectToRouletteTable(long tableId, User user);
         TableCurrentData GetTableData(long tableId);
+        bool TakePlayerBet(BetRequestModel betModel);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Messages;
 using Casino.Roulette.Backend.Core;
 using Casino.Roulette.Backend.Models;
@@ -60,6 +61,21 @@ namespace Casino.Roulette.Backend.Hubs
             }
 
             result.Data = _engine.GetTableData(tableId);
+
+            return result;
+        }
+
+        public BaseResponse BetRequest(BetRequestModel betModel)
+        {
+            var result = new BaseResponse();
+            if (!_engine.TakePlayerBet(betModel))
+            {
+                result.Success = false;
+                result.Message = "Wrong Table State";
+            }
+
+            result.Success = true;
+            result.Message = "Your bet has been accepted";
 
             return result;
         }

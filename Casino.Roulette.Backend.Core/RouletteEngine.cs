@@ -51,5 +51,15 @@ namespace Casino.Roulette.Backend.Core
         {
             return !_tableManager.TryGetTableById(tableId, out var table) ? null : table.GeTableCurrentData();
         }
+
+        public bool TakePlayerBet(BetRequestModel betModel)
+        {
+            if (!_tableManager.TryGetTableById(betModel.TableId, out var table))
+            {
+                return false;
+            }
+
+            return table.TakeBet(betModel);
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace Casino.Roulette.Backend.Contracts.Messages
 {
     public class TableCurrentData
     {
-        public TableState TableState { get; set; }
+        public RoundState CurrentState { get; set; }
         public long RoundId { get; set; }
         public long SecondsRemaining { get; set; }
     }

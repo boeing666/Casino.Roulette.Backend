@@ -17,7 +17,10 @@ namespace Casino.Roulette.Backend.Services
         private readonly IMessageBroker _messageBroker;
         private RouletteTimer _timer;
         public long RoundId { get; set; }
-        public TableState CurrentState { get; set; }
+        public TableState TableState { get; set; }
+
+        public RouletteRound CurrentRound { get; set; }
+        public List<RouletteRound> RoundHistory { get; set; }
 
         private ConcurrentDictionary<long, UserOnTable> _connectedUsers;
         public RouletteTable(IMessageBroker messageBroker)
@@ -27,10 +30,10 @@ namespace Casino.Roulette.Backend.Services
             _timer = new RouletteTimer(Constants.AfterRoundTime);
             _timer.Elapsed = BettingTimeStart;
             _connectedUsers = new ConcurrentDictionary<long, UserOnTable>();
+            CurrentRound = new RouletteRound();
         }
         public void BettingTimeStart()
         {
-            CurrentState = TableState.BettingTime;
             _messageBroker.BroadcastMessageToLobby(GeTableCurrentData(), Commands.BettingTimeStart);
 
             _timer.SetInterval(Constants.BettingTime);
@@ -55,10 +58,20 @@ namespace Casino.Roulette.Backend.Services
             {
                 RoundId = this.RoundId,
                 SecondsRemaining = _timer.TimeLeft,
-                TableState = CurrentState
+                CurrentState = CurrentRound.State
             };
             
         }
 
+        public bool TakeBet(BetRequestModel betModel)
+        {
+            if (CurrentRound.State != RoundState.RollingState)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

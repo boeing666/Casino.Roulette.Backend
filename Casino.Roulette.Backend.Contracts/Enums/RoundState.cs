@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Casino.Roulette.Backend.Contracts.Enums
 {
-    public enum TableState
+    public enum RoundState
     {
-        Blocked, 
-        Active
+        None = 0,
+        BettingTime = 1,
+        RollingState
     }
 }
