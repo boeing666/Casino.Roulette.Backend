@@ -2,14 +2,16 @@
 
 using System;
 using Autofac;
-using Casino.Roulette.Backend.Core;
 using Casino.Roulette.Backend.Hubs;
 using Casino.Roulette.Backend.Interfaces;
 using Casino.Roulette.Backend.Interfaces.Repository;
+using Casino.Roulette.Backend.Interfaces.Services;
 using Casino.Roulette.Backend.Models;
 using Casino.Roulette.Backend.Repository.Database;
 using Casino.Roulette.Backend.Repository.Mocking;
+using Casino.Roulette.Backend.Services;
 using Casino.Roulette.Backend.Services.Managers;
+using Casino.Roulette.Backend.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -54,6 +56,7 @@ namespace Casino.Roulette.Backend
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterType<RouletteEngine>().As<IRouletteEngine>().SingleInstance();
+            builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
             builder.RegisterType<HubMessageBroker>().As<IMessageBroker>();
             builder.RegisterType<UserManager>().SingleInstance();
             builder.RegisterType<TableManager>().SingleInstance();

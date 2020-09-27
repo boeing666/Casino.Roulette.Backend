@@ -14,7 +14,6 @@ namespace Casino.Roulette.Backend.Services.Managers
     {
         private IMessageBroker _messageBroker;
         private UserManager _usernManager;
-        private RouletteTimer _timer;
 
         private ConcurrentDictionary<long, RouletteTable> _rouletteTables;
 

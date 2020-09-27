@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Messages;
-using Casino.Roulette.Backend.Core;
 using Casino.Roulette.Backend.Models;
+using Casino.Roulette.Backend.Services;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Casino.Roulette.Backend.Hubs

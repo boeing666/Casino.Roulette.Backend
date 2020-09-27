@@ -1,13 +1,10 @@
-﻿using Casino.Roulette.Backend.Services.Managers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
 using Casino.Roulette.Backend.Interfaces;
-using Casino.Roulette.Backend.Contracts.Messages;
+using Casino.Roulette.Backend.Services.Managers;
 
-namespace Casino.Roulette.Backend.Core
+namespace Casino.Roulette.Backend.Services
 {
     public class RouletteEngine : IRouletteEngine
     {
@@ -21,17 +18,17 @@ namespace Casino.Roulette.Backend.Core
             _tableManager = tableManager;
         }
 
-        public User GetRandomUserFromUserRepo()
-        {
-            return _userManager.GetRandomUser();
-        }
-
         public bool ConnectToRoulette(string token, string connectionId)
         {
             return _userManager.AddUser(token, connectionId, out var user);
         }
 
-        public User GetUserInfoByToken(Guid token)
+        public bool TryGetUserByConnectionId(string connection, out User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetUserInfoByToken(string token)
         {
             return _userManager.GetUserByToken(token);
         }
@@ -40,11 +37,6 @@ namespace Casino.Roulette.Backend.Core
         {
 
             return _tableManager.TryGetTableById(tableId, out var table) && table.TryAddPlayerToTable(user);
-        }
-
-        public bool TryGetUserByConnectionId(string connection, out User user)
-        {
-            return _userManager.TryGetUser(connection, out user);
         }
 
         public TableCurrentData GetTableData(long tableId)
@@ -61,5 +53,6 @@ namespace Casino.Roulette.Backend.Core
 
             return table.TakeBet(betModel);
         }
+
     }
 }

@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Casino.Roulette.Backend.Contracts\Casino.Roulette.Backend.Contracts.csproj" />
-    <ProjectReference Include="..\Casino.Roulette.Backend.Core\Casino.Roulette.Backend.Core.csproj" />
     <ProjectReference Include="..\Casino.Roulette.Backend.Repository\Casino.Roulette.Backend.Repository.csproj" />
     <ProjectReference Include="..\Casino.Roulette.Backend.Services\Casino.Roulette.Backend.Services.csproj" />
     <ProjectReference Include="..\Core.Roulette.Backend.Interfaces\Casino.Roulette.Backend.Interfaces.csproj" />

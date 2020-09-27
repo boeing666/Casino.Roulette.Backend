@@ -4,79 +4,42 @@ using System.Collections.Generic;
 using System.Text;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
 using Casino.Roulette.Backend.Interfaces.Repository;
+using Casino.Roulette.Backend.Interfaces.Services;
 
 namespace Casino.Roulette.Backend.Services.Managers
 {
     public class UserManager
     {
-        private readonly ConcurrentDictionary<long, User> _users;
+        private readonly ConcurrentDictionary<string, User> _connectedUsers;
+        private readonly IUserService _userService;
 
-        private readonly ConcurrentDictionary<string, long> _connectedUsers;
-        private readonly IUserRepository _userRepository;
-
-        public UserManager(IUserRepository userRepo)
+        public UserManager(IUserService userService)
         {
-            _users = new ConcurrentDictionary<long, User>();
-            _connectedUsers = new ConcurrentDictionary<string, long>();
-            _userRepository = userRepo;
-            FillData();
+            _connectedUsers = new ConcurrentDictionary<string, User>();
+            _userService = userService;
         }
 
-        public User GetRandomUser()
-        {
-            return _userRepository.GetRandomUser();
-        }
 
         public bool AddUser(string token, string connectionId, out User user)
         {
-            user = null;
+            user = new User();
+            return true;
+        }
 
-            if (_userRepository.TryGetUserByToken(token, out var newUser) == false)
+        public User GetUserByToken(string token)
+        {
+            try
             {
-                return false;
+                return _userService.GetUserInfoByToken(token);
             }
-
-            if (_users.TryGetValue(newUser.Id, out var oldUser))
+            catch (Exception e)
             {
-                user = oldUser;
-                oldUser.ConnectionId = connectionId;
-                oldUser.Balance = newUser.Balance;
-                return true;
-            }
-            else
-            {
-                _users.TryAdd(newUser.Id, newUser);
-                return true;
+                Console.WriteLine(e);
+                return null;
             }
 
         }
 
-        public bool TryGetUser(string connection, out User user)
-        {
-            user = null;
-            return  _connectedUsers.TryGetValue(connection, out var userId) &&
-                         _users.TryGetValue(userId, out user);
-        }
-
-        public User GetUserByToken(Guid token)
-        {
-            //player service should go here
-            throw new NotImplementedException(); 
-        }
-
-        public bool GetUserById(long id, out User user)
-        {
-            return _users.TryGetValue(id, out user);
-        }
-
-
-        private void FillData()
-        {
-            foreach (var user in _userRepository.Initialize())
-            {
-                _users.TryAdd(user.Id, user);
-            }
-        }
 
     }
 }

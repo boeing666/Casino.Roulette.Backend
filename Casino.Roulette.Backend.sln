@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend", "Casino.Roulette.Backend\Casino.Roulette.Backend.csproj", "{AC52922C-C2E2-460C-BED3-E67D7417FA4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Roulette.Backend", "Casino.Roulette.Backend\Casino.Roulette.Backend.csproj", "{AC52922C-C2E2-460C-BED3-E67D7417FA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend.Core", "Casino.Roulette.Backend.Core\Casino.Roulette.Backend.Core.csproj", "{E4ECA772-2256-45D9-995B-1CFC877006A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Roulette.Backend.Interfaces", "Core.Roulette.Backend.Interfaces\Casino.Roulette.Backend.Interfaces.csproj", "{147865B1-A4F8-4DB1-9DC9-F9E18CC6FD35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend.Interfaces", "Core.Roulette.Backend.Interfaces\Casino.Roulette.Backend.Interfaces.csproj", "{147865B1-A4F8-4DB1-9DC9-F9E18CC6FD35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Roulette.Backend.Services", "Casino.Roulette.Backend.Services\Casino.Roulette.Backend.Services.csproj", "{2D905A82-A9CD-4312-8EFF-D028E8674C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend.Services", "Casino.Roulette.Backend.Services\Casino.Roulette.Backend.Services.csproj", "{2D905A82-A9CD-4312-8EFF-D028E8674C86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Roulette.Backend.Contracts", "Casino.Roulette.Backend.Contracts\Casino.Roulette.Backend.Contracts.csproj", "{FDDCC586-FB4E-4597-BE54-2ACA4C1491A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend.Contracts", "Casino.Roulette.Backend.Contracts\Casino.Roulette.Backend.Contracts.csproj", "{FDDCC586-FB4E-4597-BE54-2ACA4C1491A1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Roulette.Backend.Repository", "Casino.Roulette.Backend.Repository\Casino.Roulette.Backend.Repository.csproj", "{85AF8624-755B-49B2-87A2-C7FBCD34FF56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Roulette.Backend.Repository", "Casino.Roulette.Backend.Repository\Casino.Roulette.Backend.Repository.csproj", "{85AF8624-755B-49B2-87A2-C7FBCD34FF56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{AC52922C-C2E2-460C-BED3-E67D7417FA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC52922C-C2E2-460C-BED3-E67D7417FA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC52922C-C2E2-460C-BED3-E67D7417FA4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4ECA772-2256-45D9-995B-1CFC877006A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4ECA772-2256-45D9-995B-1CFC877006A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4ECA772-2256-45D9-995B-1CFC877006A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4ECA772-2256-45D9-995B-1CFC877006A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{147865B1-A4F8-4DB1-9DC9-F9E18CC6FD35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{147865B1-A4F8-4DB1-9DC9-F9E18CC6FD35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{147865B1-A4F8-4DB1-9DC9-F9E18CC6FD35}.Release|Any CPU.ActiveCfg = Release|Any CPU

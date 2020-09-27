@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
-using Casino.Roulette.Backend.Core;
 using Casino.Roulette.Backend.Interfaces.Repository;
+using Casino.Roulette.Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -28,19 +28,6 @@ namespace Casino.Roulette.Backend.Controllers
             _logger = logger;
             _userRepository = repo;
             _engine = engine;
-        }
-
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            var list = new List<User>();
-            for (int i = 0; i < 5; i++)
-            {
-                var userFromRepo = _engine.GetRandomUserFromUserRepo();
-                list.Add(userFromRepo);
-            }
-
-            return list;
         }
 
     }
