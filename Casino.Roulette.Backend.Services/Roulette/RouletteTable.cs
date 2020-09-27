@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using Casino.Roulette.Backend.Contracts.Enums;
 using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 using Casino.Roulette.Backend.Contracts.Settings;
 using Casino.Roulette.Backend.Interfaces;
+using Casino.Roulette.Backend.Interfaces.Repository;
 
-namespace Casino.Roulette.Backend.Services
+namespace Casino.Roulette.Backend.Services.Roulette
 {
     public class RouletteTable
     {
         public long TableId { get; set; }
+
         private readonly IMessageBroker _messageBroker;
+        private readonly IRoundRepository _roundRepo;
+
         private RouletteTimer _timer;
+
         public long RoundId { get; set; }
         public TableState TableState { get; set; }
 
@@ -23,14 +26,16 @@ namespace Casino.Roulette.Backend.Services
         public List<RouletteRound> RoundHistory { get; set; }
 
         private ConcurrentDictionary<long, UserOnTable> _connectedUsers;
-        public RouletteTable(IMessageBroker messageBroker)
-        {
-            _messageBroker = messageBroker; 
 
+        public RouletteTable(IMessageBroker messageBroker, IRoundRepository roundRepo)
+        {
+            _messageBroker = messageBroker;
+            _roundRepo = roundRepo;
             _timer = new RouletteTimer(Constants.AfterRoundTime);
             _timer.Elapsed = BettingTimeStart;
             _connectedUsers = new ConcurrentDictionary<long, UserOnTable>();
-            CurrentRound = new RouletteRound();
+
+            CurrentRound = _roundRepo.CreateNewRound();
         }
         public void BettingTimeStart()
         {
@@ -60,7 +65,6 @@ namespace Casino.Roulette.Backend.Services
                 SecondsRemaining = _timer.TimeLeft,
                 CurrentState = CurrentRound.State
             };
-            
         }
 
         public bool TakeBet(BetRequestModel betModel)

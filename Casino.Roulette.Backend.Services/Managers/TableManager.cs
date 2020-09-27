@@ -7,6 +7,7 @@ using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 using Casino.Roulette.Backend.Contracts.Settings;
 using Casino.Roulette.Backend.Interfaces;
+using Casino.Roulette.Backend.Services.Roulette;
 
 namespace Casino.Roulette.Backend.Services.Managers
 {
