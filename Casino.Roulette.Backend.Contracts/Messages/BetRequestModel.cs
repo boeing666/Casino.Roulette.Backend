@@ -26,5 +26,7 @@ namespace Casino.Roulette.Backend.Contracts.Messages
     {
         public int BetIndex { get; set; }
         public decimal BetAmount { get; set; }
+        
+        
     }
 }

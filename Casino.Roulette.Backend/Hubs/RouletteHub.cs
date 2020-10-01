@@ -60,7 +60,7 @@ namespace Casino.Roulette.Backend.Hubs
                 return result;
             }
 
-            result.Data = _engine.GetTableData(tableId);
+            result.Data = _engine.GetTableData(tableId, user.Id);
 
             return result;
         }

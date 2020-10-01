@@ -12,7 +12,7 @@ namespace Casino.Roulette.Backend.Services
 
         User GetUserInfoByToken(string token);
         bool TryConnectToRouletteTable(long tableId, User user);
-        TableCurrentData GetTableData(long tableId);
+        TableCurrentData GetTableData(long tableId, long userId);
         bool TakePlayerBet(BetRequestModel betModel);
     }
 }

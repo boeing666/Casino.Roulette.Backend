@@ -35,14 +35,14 @@ namespace Casino.Roulette.Backend.Services
 
         public bool TryConnectToRouletteTable(long tableId, User user)
         {
-
             return _tableManager.TryGetTableById(tableId, out var table) && table.TryAddPlayerToTable(user);
         }
 
-        public TableCurrentData GetTableData(long tableId)
+        public TableCurrentData GetTableData(long tableId, long userId)
         {
-            return !_tableManager.TryGetTableById(tableId, out var table) ? null : table.GeTableCurrentData();
+            return !_tableManager.TryGetTableById(tableId, out var table) ? null : table.GeTableCurrentData(userId);
         }
+        
 
         public bool TakePlayerBet(BetRequestModel betModel)
         {

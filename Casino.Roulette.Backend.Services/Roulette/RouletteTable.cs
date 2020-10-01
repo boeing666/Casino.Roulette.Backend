@@ -20,10 +20,11 @@ namespace Casino.Roulette.Backend.Services.Roulette
         private RouletteTimer _timer;
 
         public long RoundId { get; set; }
+        
         public TableState TableState { get; set; }
 
         public RouletteRound CurrentRound { get; set; }
-        public List<RouletteRound> RoundHistory { get; set; }
+        public Queue<RouletteRound> RoundHistory { get; set; }
 
         private ConcurrentDictionary<long, UserOnTable> _connectedUsers;
 
@@ -34,8 +35,11 @@ namespace Casino.Roulette.Backend.Services.Roulette
             _timer = new RouletteTimer(Constants.AfterRoundTime);
             _timer.Elapsed = BettingTimeStart;
             _connectedUsers = new ConcurrentDictionary<long, UserOnTable>();
+            RoundHistory = new Queue<RouletteRound>(100);
 
             CurrentRound = _roundRepo.CreateNewRound();
+            RoundHistory.Enqueue(CurrentRound);
+            
         }
         public void BettingTimeStart()
         {
@@ -57,13 +61,14 @@ namespace Casino.Roulette.Backend.Services.Roulette
             return _connectedUsers.TryAdd(user.Id, userOnTable);
         }
 
-        public TableCurrentData GeTableCurrentData()
+        public TableCurrentData GeTableCurrentData(long userId = 0)
         {
             return new TableCurrentData()
             {
                 RoundId = this.RoundId,
                 SecondsRemaining = _timer.TimeLeft,
-                CurrentState = CurrentRound.State
+                CurrentState = CurrentRound.State,
+                PlayerBets = CurrentRound.GetPlayerBets(userId)
             };
         }
 
@@ -73,7 +78,8 @@ namespace Casino.Roulette.Backend.Services.Roulette
             {
                 return false;
             }
-
+            CurrentRound.PlayerBets.TryAdd(betModel.PlayerId, betModel);
+            
             return true;
 
         }
