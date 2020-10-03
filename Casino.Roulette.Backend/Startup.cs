@@ -60,6 +60,8 @@ namespace Casino.Roulette.Backend
             builder.RegisterType<HubMessageBroker>().As<IMessageBroker>();
             builder.RegisterType<UserManager>().SingleInstance();
             builder.RegisterType<TableManager>().SingleInstance();
+            builder.RegisterType<ValidationManager>().SingleInstance();
+
             builder.RegisterType<UserRepository>().As<IUserRepository>();
 #if MOCKING
             builder.RegisterType<MockUserRepository>().As<IUserRepository>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Casino.Roulette.Backend.Contracts.Enums;
 using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Settings;
@@ -40,15 +41,12 @@ namespace Casino.Roulette.Backend.Contracts.Models.Roulette
 
         private void CalculatePlayerWinsForRound()
         {
-            foreach (var playerBets in PlayerBets.Values)
+            foreach (var playerBet in PlayerBets.Values)
             {
-                
+                var winFromNumber = playerBet.Bets.FirstOrDefault(x => x.BetIndex == Result.Number)?.BetAmount * 36;
+                var winFromColor = playerBet.Bets.FirstOrDefault(x => x.BetIndex == (int) Result.Color)?.BetAmount * 2;
+
             }
-            
-            
-            
-            
-            
             
             
             

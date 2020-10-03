@@ -65,10 +65,7 @@ namespace Casino.Roulette.Backend.Contracts.Settings
             new BetIndex() {Index = 42, Multiplier = 2, Label = "EVEN"},
             new BetIndex() {Index = 43, Multiplier = 2, Label = "ODD"},
             new BetIndex() {Index = 44, Multiplier = 2, Label = "RED"},
-            new BetIndex() {Index = 45, Multiplier = 2, Label = "BLACK"},
-            new BetIndex() {Index = 46, Multiplier = 3, Label = "1 ST TIER"},
-            new BetIndex() {Index = 47, Multiplier = 3, Label = "2 ND TIER"},
-            new BetIndex() {Index = 48, Multiplier = 3, Label = "3 RD TIER"}
+            new BetIndex() {Index = 45, Multiplier = 2, Label = "BLACK"}
         };
     }
 }

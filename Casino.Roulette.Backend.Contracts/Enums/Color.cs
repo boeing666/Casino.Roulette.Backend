@@ -7,7 +7,7 @@ namespace Casino.Roulette.Backend.Contracts.Enums
     public enum Color
     {
         Green,
-        Black,
-        Red
+        Black = 45,
+        Red = 44
     }
 }
