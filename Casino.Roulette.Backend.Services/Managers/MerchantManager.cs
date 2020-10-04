@@ -29,11 +29,15 @@ namespace Casino.Roulette.Backend.Services.Managers
             {
                 BaseAddress = new Uri(str)
             };
-            var requestModel = JsonConvert.SerializeObject(betModel);
+
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = httpClient.PostAsync($"/api/merchant", new StringContent(requestModel)).Result;
+            betModel.BetAmount = 500;
+            betModel.PlayerId = 100_001;
+
+            var response = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
+           // var response1 = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
 
         }
     }
