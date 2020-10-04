@@ -61,6 +61,7 @@ namespace Casino.Roulette.Backend
             builder.RegisterType<UserManager>().SingleInstance();
             builder.RegisterType<TableManager>().SingleInstance();
             builder.RegisterType<ValidationManager>().SingleInstance();
+            builder.RegisterType<MerchantManager>().SingleInstance();
 
             builder.RegisterType<UserRepository>().As<IUserRepository>();
 #if MOCKING
