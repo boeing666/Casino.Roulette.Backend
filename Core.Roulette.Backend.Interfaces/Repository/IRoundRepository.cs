@@ -7,6 +7,6 @@ namespace Casino.Roulette.Backend.Interfaces.Repository
 {
     public interface IRoundRepository
     {
-        RouletteRound CreateNewRound();
+        RouletteRound CreateNewRound(long tableId);
     }
 }

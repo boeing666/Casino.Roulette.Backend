@@ -11,6 +11,7 @@ using Casino.Roulette.Backend.Repository.Database;
 using Casino.Roulette.Backend.Repository.Mocking;
 using Casino.Roulette.Backend.Services;
 using Casino.Roulette.Backend.Services.Managers;
+using Casino.Roulette.Backend.Services.Roulette;
 using Casino.Roulette.Backend.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,10 +63,13 @@ namespace Casino.Roulette.Backend
             builder.RegisterType<TableManager>().SingleInstance();
             builder.RegisterType<ValidationManager>().SingleInstance();
             builder.RegisterType<MerchantManager>().SingleInstance();
+            builder.RegisterType<RouletteTable>();
 
             builder.RegisterType<UserRepository>().As<IUserRepository>();
+            
 #if MOCKING
             builder.RegisterType<MockUserRepository>().As<IUserRepository>();
+            builder.RegisterType<MockRoundRepository>().As<IRoundRepository>();
 #endif
 
 

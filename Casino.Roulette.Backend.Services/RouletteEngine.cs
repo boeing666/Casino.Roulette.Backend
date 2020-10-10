@@ -11,6 +11,7 @@ namespace Casino.Roulette.Backend.Services
         private readonly UserManager _userManager;
         private readonly TableManager _tableManager;
         public IMessageBroker MessageBroker { get; }
+
         public RouletteEngine(UserManager usernaManager, TableManager tableManager, IMessageBroker broker)
         {
             _userManager = usernaManager;
