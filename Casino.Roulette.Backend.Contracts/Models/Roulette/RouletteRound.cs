@@ -27,11 +27,6 @@ namespace Casino.Roulette.Backend.Contracts.Models.Roulette
             PlayerBets = new ConcurrentDictionary<long, BetRequestModel>();
             RoundResult = new List<RoundWinResultModel>();
             State = RoundState.BettingTime;
-            //_stateTimer = new RouletteTimer(Constants.BettingTime);
-            //_bouncingTimer = new RouletteTimer(Constants.BallBouncingTime);
-            //_bouncingTimer.Elapsed += GetResult;
-            //_stateTimer.Elapsed += BettingTimeFinished;
-            //_stateTimer.Start();
         }
 
         public void BettingTimeFinished()

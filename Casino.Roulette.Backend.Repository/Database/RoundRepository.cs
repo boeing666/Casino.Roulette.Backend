@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 using Casino.Roulette.Backend.Interfaces.Repository;
 using Microsoft.Extensions.Configuration;
@@ -43,9 +45,15 @@ namespace Casino.Roulette.Backend.Repository.Database
             };
         }
 
-        public void SaveRoundResults(List<RoundWinResultModel> currentRoundRoundResult)
+        public async void SaveRoundResults(List<RoundWinResultModel> currentRoundRoundResult)
         {
-            //todo pokershi rogorc gavakete table igive logika
+            await Task.Run(() =>
+            {
+                Thread.Sleep(10000);
+                //todo pokershi rogorc gavakete table igive logika
+                Console.WriteLine("Finished saving bets");
+            });
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 
 namespace Casino.Roulette.Backend.Interfaces.Repository

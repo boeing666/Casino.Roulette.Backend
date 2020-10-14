@@ -62,14 +62,18 @@ namespace Casino.Roulette.Backend.Services.Roulette
            SaveRoundResult(CurrentRound);
         }
 
-        private async Task SaveRoundResult(RouletteRound currentRound)
+        private  void SaveRoundResult(RouletteRound currentRound)
         {
-            await Task.Run(() =>
-            {
-                _roundRepo.SaveRoundResults(currentRound.RoundResult);
-            });
+            //await Task.Run(() =>
+            //{
+            //    _roundRepo.SaveRoundResults(currentRound.RoundResult);
+            //});
 
+            _roundRepo.SaveRoundResults(currentRound.RoundResult);
+            Console.WriteLine("Creating new round");
             _roundRepo.CreateNewRound(TableId);
+
+            //this doesnt work 
         }
 
         private void ChangeTimerSettings(long time, Delegates.VoidMethod elapseHandler)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts.Models.Roulette;
 using Casino.Roulette.Backend.Interfaces.Repository;
 
@@ -19,9 +21,15 @@ namespace Casino.Roulette.Backend.Repository.Mocking
             };
         }
 
-        public void SaveRoundResults(List<RoundWinResultModel> currentRoundResult)
+        public async void SaveRoundResults(List<RoundWinResultModel> currentRoundResult)
         {
-            RoundResultRepository.AddRange(currentRoundResult);
+            await Task.Run(() =>
+            {
+                Thread.Sleep(10000);
+                RoundResultRepository.AddRange(currentRoundResult);
+                Console.WriteLine("Mock Finished saving bets");
+            });
+
         }
 
     }
