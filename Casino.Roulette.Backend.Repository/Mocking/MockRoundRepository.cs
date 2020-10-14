@@ -15,10 +15,12 @@ namespace Casino.Roulette.Backend.Repository.Mocking
 
         public RouletteRound CreateNewRound(long tableId)
         {
-            return new RouletteRound()
+            var round = new RouletteRound()
             {
                 RoundId = ++RoundId
             };
+            Console.WriteLine($"Current Round Id{round.RoundId}");
+            return round;
         }
 
         public async void SaveRoundResults(List<RoundWinResultModel> currentRoundResult)

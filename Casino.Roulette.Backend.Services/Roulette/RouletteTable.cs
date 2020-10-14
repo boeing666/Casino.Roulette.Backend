@@ -60,6 +60,13 @@ namespace Casino.Roulette.Backend.Services.Roulette
         {
            CurrentRound.GetResult();
            SaveRoundResult(CurrentRound);
+           CreateNewRound();
+        }
+
+        private void CreateNewRound()
+        {
+            CurrentRound = _roundRepo.CreateNewRound(TableId);
+            ChangeTimerSettings(Constants.AfterRoundTime, BettingTimeStart);
         }
 
         private  void SaveRoundResult(RouletteRound currentRound)
@@ -71,7 +78,6 @@ namespace Casino.Roulette.Backend.Services.Roulette
 
             _roundRepo.SaveRoundResults(currentRound.RoundResult);
             Console.WriteLine("Creating new round");
-            _roundRepo.CreateNewRound(TableId);
 
             //this doesnt work 
         }
