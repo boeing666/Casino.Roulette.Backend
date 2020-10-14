@@ -9,7 +9,7 @@ namespace Casino.Roulette.Backend.Repository.Mocking
     public class MockRoundRepository : IRoundRepository
     {
         public static long RoundId { get; set; } = 10000;
-
+        public static List<RoundWinResultModel> RoundResultRepository { get; set; } = new List<RoundWinResultModel>();
 
         public RouletteRound CreateNewRound(long tableId)
         {
@@ -18,5 +18,11 @@ namespace Casino.Roulette.Backend.Repository.Mocking
                 RoundId = ++RoundId
             };
         }
+
+        public void SaveRoundResults(List<RoundWinResultModel> currentRoundResult)
+        {
+            RoundResultRepository.AddRange(currentRoundResult);
+        }
+
     }
 }

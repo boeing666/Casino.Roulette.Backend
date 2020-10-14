@@ -8,5 +8,6 @@ namespace Casino.Roulette.Backend.Interfaces.Repository
     public interface IRoundRepository
     {
         RouletteRound CreateNewRound(long tableId);
+        void SaveRoundResults(List<RoundWinResultModel> currentRoundRoundResult);
     }
 }

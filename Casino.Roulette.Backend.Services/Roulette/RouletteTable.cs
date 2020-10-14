@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Casino.Roulette.Backend.Contracts;
 using Casino.Roulette.Backend.Contracts.Enums;
 using Casino.Roulette.Backend.Contracts.Messages;
@@ -32,8 +33,7 @@ namespace Casino.Roulette.Backend.Services.Roulette
         {
             _messageBroker = messageBroker;
             _roundRepo = roundRepo;
-            _stateTimer = new RouletteTimer(Constants.AfterRoundTime);
-            _stateTimer.Elapsed = BettingTimeStart;
+            _stateTimer = new RouletteTimer(Constants.AfterRoundTime) {Elapsed = BettingTimeStart};
             _stateTimer.Start();
             _connectedUsers = new ConcurrentDictionary<long, UserOnTable>();
             RoundHistory = new Queue<RouletteRound>(100);
@@ -59,6 +59,17 @@ namespace Casino.Roulette.Backend.Services.Roulette
         public void GetResult()
         {
            CurrentRound.GetResult();
+           SaveRoundResult(CurrentRound);
+        }
+
+        private async Task SaveRoundResult(RouletteRound currentRound)
+        {
+            await Task.Run(() =>
+            {
+                _roundRepo.SaveRoundResults(currentRound.RoundResult);
+            });
+
+            _roundRepo.CreateNewRound(TableId);
         }
 
         private void ChangeTimerSettings(long time, Delegates.VoidMethod elapseHandler)

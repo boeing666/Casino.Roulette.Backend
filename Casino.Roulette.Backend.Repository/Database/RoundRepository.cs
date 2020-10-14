@@ -42,5 +42,10 @@ namespace Casino.Roulette.Backend.Repository.Database
                 RoundId = id
             };
         }
+
+        public void SaveRoundResults(List<RoundWinResultModel> currentRoundRoundResult)
+        {
+            //todo pokershi rogorc gavakete table igive logika
+        }
     }
 }
