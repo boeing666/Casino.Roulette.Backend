@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Casino.Roulette.Backend.Contracts;
 using Casino.Roulette.Backend.Contracts.Enums;
 using Casino.Roulette.Backend.Contracts.Messages;
 using Casino.Roulette.Backend.Contracts.Models.Entity;
@@ -17,25 +19,26 @@ namespace Casino.Roulette.Backend.Services.Roulette
 
         private readonly IMessageBroker _messageBroker;
         private readonly IRoundRepository _roundRepo;
-        private RouletteTimer _timer;
+        private RouletteTimer _stateTimer;
         public long RoundId { get; set; }
         public TableState TableState { get; set; }
         public RouletteRound CurrentRound { get; set; }
         public Queue<RouletteRound> RoundHistory { get; set; }
 
         private ConcurrentDictionary<long, UserOnTable> _connectedUsers;
-        private ValidationManager ValidationManager;
+        private readonly ValidationManager ValidationManager;
 
         public RouletteTable(ValidationManager validationmanager, IMessageBroker messageBroker, IRoundRepository roundRepo)
         {
             _messageBroker = messageBroker;
             _roundRepo = roundRepo;
-            _timer = new RouletteTimer(Constants.AfterRoundTime);
-            _timer.Elapsed = BettingTimeStart;
+            _stateTimer = new RouletteTimer(Constants.AfterRoundTime);
+            _stateTimer.Elapsed = BettingTimeStart;
+            _stateTimer.Start();
             _connectedUsers = new ConcurrentDictionary<long, UserOnTable>();
             RoundHistory = new Queue<RouletteRound>(100);
 
-            CurrentRound = _roundRepo.CreateNewRound();
+            CurrentRound = _roundRepo.CreateNewRound(TableId);
             RoundHistory.Enqueue(CurrentRound);
             ValidationManager = validationmanager;
 
@@ -43,10 +46,26 @@ namespace Casino.Roulette.Backend.Services.Roulette
         public void BettingTimeStart()
         {
             _messageBroker.BroadcastMessageToLobby(GeTableCurrentData(), Commands.BettingTimeStart);
+            ChangeTimerSettings(Constants.BettingTime, BettingTimeFinished);
+        }
 
-            _timer.SetInterval(Constants.BettingTime);
-            _timer.Start();
+        public void BettingTimeFinished()
+        {
+            CurrentRound.State = RoundState.RollingState;
+            ChangeTimerSettings(Constants.BallBouncingTime, GetResult);
+            
+        }
 
+        public void GetResult()
+        {
+           CurrentRound.GetResult();
+        }
+
+        private void ChangeTimerSettings(long time, Delegates.VoidMethod elapseHandler)
+        {
+            _stateTimer.SetInterval(time);
+            _stateTimer.Elapsed = elapseHandler;
+            _stateTimer.Start();
         }
 
         public bool TryAddPlayerToTable(User user)
@@ -65,7 +84,7 @@ namespace Casino.Roulette.Backend.Services.Roulette
             return new TableCurrentData()
             {
                 RoundId = this.RoundId,
-                SecondsRemaining = _timer.TimeLeft,
+                SecondsRemaining = _stateTimer.TimeLeft,
                 CurrentState = CurrentRound.State,
                 PlayerBets = CurrentRound.GetPlayerBets(userId)
             };
@@ -78,9 +97,6 @@ namespace Casino.Roulette.Backend.Services.Roulette
                 CurrentRound.PlayerBets.TryAdd(betModel.PlayerId, betModel);
             }
 
-
-           
-            
             return true;
 
         }

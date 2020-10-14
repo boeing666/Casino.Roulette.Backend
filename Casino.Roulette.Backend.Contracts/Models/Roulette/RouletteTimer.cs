@@ -23,10 +23,12 @@ namespace Casino.Roulette.Backend.Contracts.Models.Roulette
             {
                 AutoReset = false,
                 Interval = _interval,
-            }; _timer.Elapsed += (sender, args) =>
+            }; 
+            _timer.Elapsed += (sender, args) =>
             {
                 Elapsed();
             };
+            _stopwatch = new Stopwatch();
         }
 
 

@@ -12,17 +12,17 @@ namespace Casino.Roulette.Backend.Repository.Database
     public class RoundRepository : IRoundRepository
     {
         private readonly IConfiguration _configuration;
-        private readonly string DbConnection;
+        private readonly string _connection;
         public RoundRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            DbConnection = _configuration.GetConnectionString("DbConnection");
+            _connection = _configuration.GetConnectionString("RouletteConnection");
         }
 
         public RouletteRound CreateNewRound(long tableId)
         {
             long id = -1;
-            using (var connection = new SqlConnection(DbConnection))
+            using (var connection = new SqlConnection(_connection))
             {
                 var command = new SqlCommand()
                 {

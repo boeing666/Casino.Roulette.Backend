@@ -8,14 +8,14 @@ namespace Casino.Roulette.Backend.Repository.Mocking
 {
     public class MockRoundRepository : IRoundRepository
     {
-        public static long RoundId { get; set; }
+        public static long RoundId { get; set; } = 10000;
 
-        public RouletteRound CreateNewRound()
+
+        public RouletteRound CreateNewRound(long tableId)
         {
             return new RouletteRound()
             {
-                RoundId = ++RoundId,
-
+                RoundId = ++RoundId
             };
         }
     }
