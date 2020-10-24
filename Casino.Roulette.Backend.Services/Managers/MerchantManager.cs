@@ -33,11 +33,11 @@ namespace Casino.Roulette.Backend.Services.Managers
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            betModel.BetAmount = 500;
+            betModel.BetAmount = 400;
             betModel.PlayerId = 100_001;
 
             var response = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
-           // var response1 = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
+           var response1 = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
 
         }
     }

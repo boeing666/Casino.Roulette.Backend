@@ -53,7 +53,6 @@ namespace Casino.Roulette.Backend.Services.Roulette
         {
             CurrentRound.State = RoundState.RollingState;
             ChangeTimerSettings(Constants.BallBouncingTime, GetResult);
-            
         }
 
         public void GetResult()
@@ -119,7 +118,6 @@ namespace Casino.Roulette.Backend.Services.Roulette
             }
 
             return true;
-
         }
     }
 }
