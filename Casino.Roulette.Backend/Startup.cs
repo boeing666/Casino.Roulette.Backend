@@ -83,6 +83,7 @@ namespace Casino.Roulette.Backend
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseRouting();

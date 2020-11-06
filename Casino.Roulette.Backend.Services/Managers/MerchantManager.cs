@@ -36,8 +36,8 @@ namespace Casino.Roulette.Backend.Services.Managers
             betModel.BetAmount = 400;
             betModel.PlayerId = 100_001;
 
-            var response = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
-           var response1 = httpClient.PostAsJsonAsync("api/merchant", betModel).Result;
+            var response = httpClient.PostAsJsonAsync("api/merchant", betModel);
+           var response1 = httpClient.PostAsJsonAsync("api/merchant", betModel);
 
         }
     }

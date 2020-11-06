@@ -6,8 +6,8 @@ namespace Casino.Roulette.Backend.Contracts.Settings
 {
     public class Commands
     {
-        public static string StateUpdate { get; set; } = "state_updated";
-        public static string BettingTimeStart { get; set; } = "betting_start";
+        public static string StateUpdate { get; set; } = "StateUpdated";
+        public static string BettingTimeStart { get; set; } = "BettingTimeStart";
 
     }
 }

@@ -25,6 +25,13 @@ namespace Casino.Roulette.Backend.Hubs
                 var token = requestQuery["token"];
                 _engine.ConnectToRoulette(token, Context.ConnectionId);
             }
+
+            if (requestQuery.ContainsKey("access_token"))
+            {
+                var token = requestQuery["access_token"];
+                _engine.ConnectToRoulette(token, Context.ConnectionId);
+            }
+
         }
 
         public BaseResponse InitApp()
